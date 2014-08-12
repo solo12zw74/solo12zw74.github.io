@@ -1,10 +1,20 @@
+var searchButtonElement;
+var searchInputElement;
+var dataStore;
+var resultsTable;
+
 $(document).ready(function(){
 
+	searchButtonElement = $('#searchButton');
+	searchInputElement = $('#searchInput');
 
-	$('#search').on('click', onClick);
+	searchButtonElement.on('click', doSearch);
+	searchInputElement.keypress(function(e) {
+		if(e.which == 13) {
+			doSearch();
+		}
+	});
 
-	var dataStore;
-	var resultsTable;
 	initBackendless();
 	initDataTable();
 
@@ -17,13 +27,12 @@ $(document).ready(function(){
 
 		resultsTable = $('#resultsTable').DataTable( {
 			"searching": false,
-			"paging": false,
 			"lengthChange": false,
 			"info": false,
 			"columns": [
-			{ data: "name" },
-			{ data: "city" },
-			{ data: "number" }				
+				{ data: "name" },
+				{ data: "city" },
+				{ data: "number" }				
 			],
 			"language": {
 				"emptyTable": "Нет данных для отображения"
@@ -31,20 +40,29 @@ $(document).ready(function(){
 		} );
 	}
 
-	function onClick(){
-		var nm = $('input#searchVal').val();
+	function doSearch()
+	{
+		resultsTable.clear().draw();
+		var nm = searchInputElement.val();
 		if (!nm)
 			return;
 		if (nm.length < 5)
 			return;
 
 		var query = {
-			   //condition: "name LIKE '%"+encodeURI(nm)+"%'"
-			   condition: "name LIKE '%"+nm+"%'"
-			};
-			var records = dataStore.find(query);			
-			resultsTable.clear();
-			resultsTable.rows.add(records.data).draw();
+		   //condition: "name LIKE '%"+encodeURI(nm)+"%'"
+		   condition: "name LIKE '%"+nm+"%'"
+		};
+		searchButtonElement.attr('disabled','disabled');
+		
+		var records = dataStore.find(query);
+		
+		searchButtonElement.removeAttr('disabled');
+		if (!records.data.length) {	
+			$('#not_found_al').show().delay(5000).fadeOut(2000)
+		}
+		
+		resultsTable.rows.add(records.data).draw();
 	}
 
 	function ipoteka(args) {
