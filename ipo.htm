@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ipo</title>
+	<style type="text/css" media="screen">
+		body {
+			padding-top: 50px;
+		}
+		.starter-template {
+			padding: 40px 15px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>	
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1>Введите имя заявителя по программе (не менее 5 символов)</h1>
+			<!-- <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
+			<input type="search" id="searchVal" value="" placeholder="имя заявителя">
+			<button id="search">Найти</button>
+			<div>
+				
+			</div>
+			<table id="resultsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<caption>Результаты поиска</caption>
+				<thead>
+					<tr>
+						<th>Заявитель</th>
+						<th>Город</th>
+						<th>Порядковый номер</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>Заявитель</th>
+						<th>Город</th>
+						<th>Порядковый номер</th>
+					</tr>
+				</tfoot>
+			</table>
+
+		</div>
+
+	</div>
+</body>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css">
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://api.backendless.com/sdk/js/latest/backendless.js"></script>
+<script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#search').on('click', onClick);
+		
+		var dataStore;
+		var resultsTable;
+		initBackendless();
+		initDataTable();
+		
+		function initBackendless(){
+			Backendless.initApp('C90AB8DD-C479-4808-FFA4-BC6AF9585300', 'F8A39CC5-13E9-C319-FF13-15653E9DD000', 'v1');
+			dataStore = Backendless.Persistence.of(ipoteka);
+		}
+
+		function initDataTable(){
+			
+			resultsTable = $('#resultsTable').DataTable( {
+				"searching": false,
+				"paging": false,
+				"lengthChange": false,
+				"info": false,
+				"columns": [
+				{ data: "name" },
+				{ data: "city" },
+				{ data: "number" }				
+				],
+				"language": {
+			      "emptyTable": "Нет данных для отображения"
+			    }
+			} );
+		}
+
+		function onClick(){
+			var nm = $('input#searchVal').val();
+			if (!nm)
+				return;
+			if (nm.length < 5)
+				return;
+			
+			var query = {
+			   //condition: "name LIKE '%"+encodeURI(nm)+"%'"
+			   condition: "name LIKE '%"+nm+"%'"
+			};
+			var records = dataStore.find(query);			
+			resultsTable.clear();
+			resultsTable.rows.add(records.data).draw();
+		}
+
+		function ipoteka(args) {
+			args = args || {};
+			this.dt = args.dt || "";
+			this.updated = args.updated || "";
+			this.created = args.created || "";
+			this.objectId = args.objectId || "";
+			this.ownerId =  args.ownerId || "";
+			this.name = args.name || "";
+			this.number = args.number || "";
+			this.isProgram =  args.isProgram || "";
+			this.isProgram1 =  args.isProgram1 || "";
+			this.hasDocs =  args.hasDocs || "";
+			this.city =  args.city || "";
+			this.toString = function(){
+				return this.name+' ('+this.city+')';
+			}
+		}
+
+	});
+</script>
+</html>
