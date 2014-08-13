@@ -13,20 +13,18 @@
 			<!-- <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
 
 			<div class="row">
-			<div class="col-lg-4"></div>
-				<div class="col-lg-4">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-6">
 					<div class="input-group">
-						<input type="search" class="form-control" id="searchInput" placeholder="имя заявителя">
+						<input type="search" class="form-control" id="searchInput" placeholder="Например, Иванов Иван Иванович">
 						<span class="input-group-btn">
 							<button id="searchButton" class="btn btn-default" type="button">Найти</button>
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /.col-lg-4 -->
-				<div class="col-lg-4">
-					<span class="label label-warning" style="display: none;" id="not_found_al">Ничего не найдено</span>
-				</div>
-			</div><!-- /.row -->			
-						
+				<div class="col-lg-3"></div>
+			</div><!-- /.row -->
+
 			<div class="row">
 				<table id="resultsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">					
 					<thead>
@@ -44,6 +42,26 @@
 						</tr>
 					</tfoot>
 				</table>
+			</div>
+		</div>
+		<div class="row">
+		<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">
+				Максимальное кол-во результатов поиска - 10. Чем точннее вы вводите запрос - тем точнее результаты. Для наилучшего поиска вводите полное ФИО
+			</div>
+
+			
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="notFoundModal" tabindex="-1" role="dialog" aria-labelledby="notFoundModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						По данному запросу ничего не найдено
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Понятно</button>						
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

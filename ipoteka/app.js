@@ -29,6 +29,7 @@ $(document).ready(function(){
 			"searching": false,
 			"lengthChange": false,
 			"info": false,
+			"paging": false,
 			"columns": [
 				{ data: "name" },
 				{ data: "city" },
@@ -55,14 +56,19 @@ $(document).ready(function(){
 		};
 		searchButtonElement.attr('disabled','disabled');
 		
-		var records = dataStore.find(query);
-		
+		dataStore.find(query, new Backendless.Async(searchSuccess, searchFault));
+	}
+
+	function searchSuccess(result){
 		searchButtonElement.removeAttr('disabled');
-		if (!records.data.length) {	
-			$('#not_found_al').show().delay(5000).fadeOut(2000)
+		if (!result.data.length) {
+			$('#notFoundModal').modal('show');
 		}
 		
-		resultsTable.rows.add(records.data).draw();
+		resultsTable.rows.add(result.data).draw();
+	}
+	function searchFault(error){
+
 	}
 
 	function ipoteka(args) {
