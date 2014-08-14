@@ -2,8 +2,11 @@ var searchButtonElement;
 var searchInputElement;
 var dataStore;
 var resultsTable;
+var locationHash;
 
-$(document).ready(function(){
+$(function(){
+
+	locationHash = window.location.hash;
 
 	searchButtonElement = $('#searchButton');
 	searchInputElement = $('#searchInput');
@@ -89,4 +92,9 @@ $(document).ready(function(){
 		}
 	}
 
-	});
+	if (locationHash && searchInputElement) {
+		searchInputElement.val((locationHash.replace('#','')));
+		doSearch();
+	}
+
+});
