@@ -48,6 +48,7 @@ $(function(){
 	{
 		resultsTable.clear().draw();
 		var nm = searchInputElement.val();
+		nm = filterValue(nm);
 		if (!nm)
 			return;
 		if (nm.length < 5)
@@ -72,6 +73,10 @@ $(function(){
 	}
 	function searchFault(error){
 
+	}
+
+	function filterValue(val){
+		return val.substring(96).replace(/\s+/g, ' ').replace(/[^А-Яа-я ёЁ-]/gi,'');
 	}
 
 	function ipoteka(args) {
