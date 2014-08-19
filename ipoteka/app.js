@@ -76,7 +76,7 @@ $(function(){
 	}
 
 	function filterValue(val){
-		return val.substring(96).replace(/\s+/g, ' ').replace(/[^А-Яа-я ёЁ-]/gi,'');
+		return val.substring(0,96).replace(/\s+/g, ' ').replace(/[^А-Яа-я ёЁ-]/gi,'');
 	}
 
 	function ipoteka(args) {
