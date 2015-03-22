@@ -1,33 +1,35 @@
-// dc.min.js.map
+d3.csv('data/dp.csv', function (data) {process_data(data, '#chart-dp-daily', '#chart-dp-summary')});
+d3.csv('data/ifl.csv', function (data) {process_data(data, '#chart-ifl-daily', '#chart-ifl-summary')});
+d3.csv('data/kasko.csv', function (data) {process_data(data, '#chart-kasko-daily', '#chart-kasko-summary')});
 
-var chart = dc.barChart("#test");
+function process_data(data, dailyContainerId, summaryContainerId){
 
-var counts = [
-{date: "2015-04-01", name: "apple", cnt: 10},
-{date: "2015-04-02", name: "apple", cnt: 20},
-{date: "2015-04-03", name: "apple", cnt: 30},
-{date: "2015-04-01", name: "orange", cnt: 15},
-{date: "2015-04-02", name: "orange", cnt: 25},
-{date: "2015-04-03", name: "orange", cnt: 35},
-{date: "2015-04-01", name: "banana", cnt: 12},
-{date: "2015-04-02", name: "banana", cnt: 22},
-{date: "2015-04-03", name: "banana", cnt: 32},
-{date: "2015-04-01", name: "grapefruit", cnt: 2},
-{date: "2015-04-02", name: "grapefruit", cnt: 4},
-{date: "2015-04-03", name: "grapefruit", cnt: 8}
-];
+	var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
-var ndx            = crossfilter(counts),
-fruitDimension = ndx.dimension(function(d) {return d.name;}),
-sumGroup       = fruitDimension.group().reduceSum(function(d) {return d.cnt;});
+	data.forEach(function(d) {
+		d.date = parseDate(d.date);
+	});
 
-chart
+	var ndx = crossfilter(data),
+	dateDimension = ndx.dimension(function(d) {return d.date;}),
+	dayGroup = dateDimension.group(function(d) {return d3.time.day(d);}),
+	weekGroup = dateDimension.group(function(d) {return d3.time.week(d);});
+	
+	var minDate = dateDimension.bottom(1)[0].date;
+	var maxDate = dateDimension.top(1)[0].date;
 
-.x(d3.scale.ordinal())
-.xUnits(dc.units.ordinal)
-.xAxisLabel("Дата")
-.yAxisLabel("Кол-во")
-.dimension(fruitDimension)
-.group(sumGroup);
+	var summaryChart = dc.barChart(summaryContainerId)	
+	.width(748).height(240)
+	.dimension(dateDimension)
+	.group(dayGroup)
+	.x(d3.time.scale().domain([minDate,maxDate]))
+	.mouseZoomable(true)
+	.xUnits(d3.time.days)
+	.render();
 
-chart.render();
+	var dailyNumber = dc
+	.numberDisplay(dailyContainerId)
+	.group(dayGroup)
+	.formatNumber(d3.format(".0s sss"))
+	.render();
+}

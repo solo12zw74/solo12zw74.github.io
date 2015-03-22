@@ -1,0 +1,12 @@
+.daily-count {
+	width:120px;
+	height: 120px;
+	font-size: 64px;
+	text-align: center;
+
+	padding-top: 63px;
+	padding-bottom: 63px;	
+}
+.dc-chart {
+	float: none !important;
+}

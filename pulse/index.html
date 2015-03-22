@@ -11,7 +11,7 @@
 	<link href="css/jumbotron-narrow.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.3/dc.min.css">
 	<link rel="stylesheet" href="css/keen-dashboards.css">
-
+	<link rel="stylesheet" href="css/app.css">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -20,7 +20,7 @@
 			<![endif]-->
 
 		</head>
-		<body>
+		<body >
 			<div class="container-fluid">
 
 				<div class="row">
@@ -29,8 +29,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage daily-count" id="chart-dp-daily">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -42,8 +42,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage" id="chart-dp-summary">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -58,8 +58,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage daily-count" id="chart-ifl-daily">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -71,8 +71,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage" id="chart-ifl-summary">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -87,8 +87,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage daily-count" id="chart-kasko-daily">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -100,8 +100,8 @@
 							<div class="chart-title">
 								Cell Title
 							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
+							<div class="chart-stage" id="chart-kasko-summary">
+								<!-- <img data-src="holder.js/100%x120/white"> -->
 							</div>
 							<div class="chart-notes">
 								Notes about this chart
@@ -109,43 +109,13 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-sm-3">
-						<div class="chart-wrapper">
-							<div class="chart-title">
-								Cell Title
-							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
-							</div>
-							<div class="chart-notes">
-								Notes about this chart
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-9">
-						<div class="chart-wrapper">
-							<div class="chart-title">
-								Cell Title
-							</div>
-							<div class="chart-stage">
-								<img data-src="holder.js/100%x120/white">
-							</div>
-							<div class="chart-notes">
-								Notes about this chart
-							</div>
-						</div>
-					</div>
-				</div>
-
-
+				
 				<hr>
-
-				<p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
-
+				
 				<footer class="footer">
-					<p>&copy; Югория 2015</p>
+					<p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
+					<p class="small text-muted">&copy; Югория 2015<a href="http://ugsk.ru">Keen IO</a></p>
+
 				</footer>
 
 
