@@ -18,18 +18,35 @@ function process_data(data, dailyContainerId, summaryContainerId){
 	var minDate = dateDimension.bottom(1)[0].date;
 	var maxDate = dateDimension.top(1)[0].date;
 
+var volumeChart = dc.barChart('#chart-dp-volume');
+
 	var summaryChart = dc.barChart(summaryContainerId)	
-	.width(748).height(240)
+	.width(820).height(240)
+	.brushOn(false)
 	.dimension(dateDimension)
 	.group(dayGroup)
 	.x(d3.time.scale().domain([minDate,maxDate]))
 	.mouseZoomable(true)
+	.rangeChart(volumeChart)
 	.xUnits(d3.time.days)
+	.render();
+
+	volumeChart
+	.width(820).height(60)
+	.dimension(dateDimension)
+	.group(weekGroup)
+	.centerBar(true)
+	.gap(1)
+	.x(d3.time.scale().domain([minDate,maxDate]))
+	.round(d3.time.week.round)
+	.xUnits(d3.time.weeks)
+
 	.render();
 
 	var dailyNumber = dc
 	.numberDisplay(dailyContainerId)
 	.group(dayGroup)
-	.formatNumber(d3.format(".0s sss"))
+	.formatNumber(d3.format(".0s"))
+	.filter('2015-03-21')
 	.render();
 }
